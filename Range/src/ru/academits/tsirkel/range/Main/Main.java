@@ -1,6 +1,7 @@
-package Main;
+package ru.academits.tsirkel.range.Main;
 
-import Range.*;
+import ru.academits.tsirkel.range.Range.Range;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -40,8 +41,8 @@ public class Main {
 
         System.out.println();
 
-        System.out.println("Пересечение двух диапазонов: " + firstRange.rangeIntersection(secondRange));
-        System.out.println("Объединение двух диапазонов: " + Arrays.toString(firstRange.rangeUnion(secondRange)));
-        System.out.println("Разность двух диапазонов: " + Arrays.toString(firstRange.rangeComplement(secondRange)));
+        System.out.println("Пересечение двух диапазонов: " + firstRange.getIntersection(secondRange));
+        System.out.println("Объединение двух диапазонов: " + Arrays.toString(firstRange.getUnion(secondRange)));
+        System.out.println("Разность двух диапазонов: " + Arrays.toString(firstRange.getComplement(secondRange)));
     }
 }
