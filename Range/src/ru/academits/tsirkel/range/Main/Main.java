@@ -43,6 +43,6 @@ public class Main {
 
         System.out.println("Пересечение двух диапазонов: " + firstRange.getIntersection(secondRange));
         System.out.println("Объединение двух диапазонов: " + Arrays.toString(firstRange.getUnion(secondRange)));
-        System.out.println("Разность двух диапазонов: " + Arrays.toString(firstRange.getComplement(secondRange)));
+        System.out.println("Разность двух диапазонов: " + Arrays.toString(firstRange.getDifference(secondRange)));
     }
 }
