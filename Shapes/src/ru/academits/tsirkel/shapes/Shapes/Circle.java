@@ -2,7 +2,6 @@ package ru.academits.tsirkel.shapes.Shapes;
 
 public class Circle implements Shape {
     private double radius;
-    private static double PI = 3.1415;
 
     public Circle(double radius) {
         this.radius = radius;
@@ -20,12 +19,12 @@ public class Circle implements Shape {
 
     @Override
     public double getArea() {
-        return PI * Math.pow(radius, 2);
+        return Math.PI * Math.pow(radius, 2);
     }
 
     @Override
     public double getPerimeter() {
-        return 2 * PI * radius;
+        return 2 * Math.PI * radius;
     }
 
     @Override

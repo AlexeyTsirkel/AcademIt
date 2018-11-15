@@ -17,46 +17,18 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
-    private double getMin(double first, double second, double third) {
-        double min;
-        if (first <= second) {
-            min = first;
-        } else {
-            min = second;
-        }
-        if (min < third) {
-            return min;
-        } else {
-            return third;
-        }
-    }
-
-    private double getMax(double first, double second, double third) {
-        double max;
-        if (first >= second) {
-            max = first;
-        } else {
-            max = second;
-        }
-        if (max > third) {
-            return max;
-        } else {
-            return third;
-        }
-    }
-
-    private double getSideLength(double xFirst, double xSecond, double yFirst, double ySecond) {
-        return Math.sqrt(Math.pow((xSecond - xFirst), 2) + Math.pow((ySecond - yFirst), 2));
+    private static double getSideLength(double x1, double x2, double y1, double y2) {
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
 
     @Override
     public double getWidth() {
-        return getMax(x1, x2, x3) - getMin(x1, x2, x3);
+        return Math.max(x1, Math.max(x2, x3)) - Math.min(x1, Math.min(x2, x3));
     }
 
     @Override
     public double getHeight() {
-        return getMax(y1, y2, y3) - getMin(y1, y2, y3);
+        return Math.max(y1, Math.max(y2, y3)) - Math.min(y1, Math.min(y2, y3));
     }
 
     @Override

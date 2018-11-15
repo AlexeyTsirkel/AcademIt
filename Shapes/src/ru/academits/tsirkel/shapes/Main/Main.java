@@ -15,12 +15,12 @@ public class Main {
                 new Rectangle(6, 11),
                 new Triangle(2, 2, 8, 8, 10, 2)};
 
-        Arrays.sort(shape, new SortByArea());
+        Arrays.sort(shape, new SortByAreaComparator());
         System.out.println("Фигура с наибольшей площадью - " + shape[shape.length - 1]);
 
         System.out.println();
 
-        Arrays.sort(shape, new SortByPerimeter());
+        Arrays.sort(shape, new SortByPerimeterComparator());
         System.out.println("Фигура со вторым по величине периметром - " + shape[shape.length - 2]);
     }
 }
