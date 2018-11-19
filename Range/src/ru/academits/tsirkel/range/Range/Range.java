@@ -58,7 +58,7 @@ public class Range {
         if (range.from >= this.to || range.to <= this.from) {
             return new Range[]{new Range(this.from, this.to)};
         } else {
-            if (this.from > range.from) {
+            if (this.from >= range.from) {
                 if (range.to >= this.to) {
                     return new Range[0];
                 } else {
