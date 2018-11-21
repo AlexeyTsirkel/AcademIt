@@ -6,7 +6,7 @@ public class Vector {
     private double[] components;
 
     public Vector(int n) {
-        if (n <= 0) throw new IllegalArgumentException("Размерность вектора задана не положительным числом!");
+        if (n <= 0) { throw new IllegalArgumentException("Размерность вектора задана не положительным числом!"); }
         this.components = new double[n];
     }
 
@@ -19,7 +19,7 @@ public class Vector {
     }
 
     public Vector(int n, double[] array) {
-        if (n <= 0) throw new IllegalArgumentException("Размерность вектора задана не положительным числом!");
+        if (n <= 0) { throw new IllegalArgumentException("Размерность вектора задана не положительным числом!"); }
         this.components = Arrays.copyOf(array, n);
     }
 
@@ -42,36 +42,35 @@ public class Vector {
         return sb.toString();
     }
 
-    public Vector addVector(Vector vector) {
-        Vector newVector = new Vector(vector.getSize() >= this.getSize() ? vector : this);
-        for (int i = 0; i < Math.min(vector.getSize(), this.getSize()); ++i) {
-            newVector.components[i] = this.components[i] + vector.components[i];
+    public Vector doAddition(Vector vector) {
+        if (this.getSize() < vector.getSize()) {
+            this.components = Arrays.copyOf(this.components, vector.getSize());
         }
-        return newVector;
-    }
-
-    public Vector subtractVector(Vector vector) {
-        Vector newVector = new Vector(Math.max(this.getSize(), vector.getSize()), this.components);
-        for (int i = 0; i < Math.min(newVector.getSize(), vector.getSize()); ++i) {
-            newVector.components[i] -= vector.components[i];
-        }
-        return newVector;
-    }
-
-    public Vector multiplyVector(int num) {
-        Vector vector = new Vector(this);
         for (int i = 0; i < vector.getSize(); ++i) {
-            vector.components[i] *= num;
+            this.components[i] += vector.components[i];
         }
-        return vector;
+        return this;
     }
 
-    public Vector turnVector() {
-        Vector vector = new Vector(this);
-        for (int i = 0; i < vector.getSize(); ++i) {
-            vector.components[i] *= -1;
+    public Vector doSubtract(Vector vector) {
+        if (this.getSize() < vector.getSize()) {
+            this.components = Arrays.copyOf(this.components, vector.getSize());
         }
-        return vector;
+        for (int i = 0; i < vector.getSize(); ++i) {
+            this.components[i] -= vector.components[i];
+        }
+        return this;
+    }
+
+    public Vector doScalarMultiply(int num) {
+        for (int i = 0; i < this.getSize(); ++i) {
+            this.components[i] *= num;
+        }
+        return this;
+    }
+
+    public Vector doTurn() {
+        return this.doScalarMultiply(-1);
     }
 
     public double getLength() {
@@ -83,26 +82,19 @@ public class Vector {
     }
 
     public Vector setComponent(int index, double comp) {
-        Vector newVector = new Vector(this);
-        if (index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс задан отрицательным числом!");
-        }
-        if (index < newVector.components.length) {
-            newVector.components[index] = comp;
-            return newVector;
+        if (index >= this.components.length || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Индекс задан числом не входящим в длину диапазона!");
         } else {
-            throw new ArrayIndexOutOfBoundsException("Индекс задан числом большим, либо равным длине диапазона!");
+            this.components[index] = comp;
+            return this;
         }
     }
 
     public double getComponent(int index) {
-        if (index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс задан отрицательным числом!");
-        }
-        if (index < this.components.length) {
-            return this.components[index];
+        if (index < 0 || index >= this.components.length) {
+            throw new ArrayIndexOutOfBoundsException("Индекс задан числом не входящим в длину диапазона!");
         } else {
-            throw new ArrayIndexOutOfBoundsException("Индекс задан числом большим, либо равным длине диапазона!");
+            return this.components[index];
         }
     }
 
@@ -110,7 +102,6 @@ public class Vector {
     public int hashCode() {
         final int prime = 31;
         int hash = 1;
-        hash = prime * hash + getSize();
         hash = prime * hash + Arrays.hashCode(components);
         return hash;
     }
@@ -124,20 +115,21 @@ public class Vector {
             return false;
         }
         Vector vector = (Vector) obj;
-        return getSize() == vector.getSize() && (components != null && Arrays.equals(components, vector.components));
+        return Arrays.equals(components, vector.components);
     }
 
-    public static Vector addVectorStatic(Vector vector1, Vector vector2) {
-        return new Vector(vector1).addVector(vector2);
+    public static Vector getSum(Vector vector1, Vector vector2) {
+        return new Vector(vector1).doAddition(vector2);
     }
 
-    public static Vector subtractVectorStatic(Vector vector1, Vector vector2) {
-        return new Vector(vector1).subtractVector(vector2);
+    public static Vector getSubtract(Vector vector1, Vector vector2) {
+        return new Vector(vector1).doSubtract(vector2);
     }
 
-    public static double scalarMultiply(Vector vector1, Vector vector2) {
+    public static double getScalarMultiply(Vector vector1, Vector vector2) {
+        int minLength = Math.min(vector1.getSize(), vector2.getSize());
         double sum = 0;
-        for (int i = 0; i < (vector1.getSize() >= vector2.getSize() ? vector1.getSize() : vector2.getSize()); ++i) {
+        for (int i = 0; i < minLength; ++i) {
             sum += vector1.components[i] * vector2.components[i];
         }
         return sum;

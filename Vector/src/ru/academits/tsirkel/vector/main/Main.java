@@ -35,17 +35,17 @@ public class Main {
         System.out.println();
 
         System.out.println("Нестатические методы:");
-        System.out.println("Прибавляем к вектору 5 вектор 4: " + vector5.addVector(vector4));
+        System.out.println("Прибавляем к вектору 5 вектор 4: " + vector5.doAddition(vector4));
         System.out.println();
 
-        System.out.println("Вычитаем из вектора 5 вектор 1 = " + vector5.subtractVector(vector1));
+        System.out.println("Вычитаем из вектора 5 вектор 1 = " + vector5.doSubtract(vector1));
         System.out.println();
 
         System.out.println("Введите число для умножения: ");
-        System.out.println("Умножаем вектор 5 на число = " + vector5.multiplyVector(scanner.nextInt()));
+        System.out.println("Умножаем вектор 5 на число = " + vector5.doScalarMultiply(scanner.nextInt()));
         System.out.println();
 
-        System.out.println("Разворот вектора 5: " + vector5.turnVector());
+        System.out.println("Разворот вектора 5: " + vector5.doTurn());
         System.out.println();
 
         System.out.println("Длина вектора 5 = " + vector5.getLength());
@@ -66,12 +66,12 @@ public class Main {
         System.out.println();
 
         System.out.println("Статические методы:");
-        Vector vector6 = new Vector(Vector.addVectorStatic(vector1, vector4));
-        System.out.println("Сложение двух векторов (1 и 4)= " + vector6);
+        Vector vector6 = new Vector(Vector.getSum(vector1, vector4));
+        System.out.println("Вектор 6 = сумма двух векторов (1 и 4)= " + vector6);
 
-        Vector vector7 = new Vector(Vector.subtractVectorStatic(vector1, vector5));
-        System.out.println("Вычитание двух векторов (1 и 5)= " + vector7);
+        Vector vector7 = new Vector(Vector.getSubtract(vector1, vector5));
+        System.out.println("Вектор 7 = разность двух векторов (1 и 5)= " + vector7);
 
-        System.out.println("Скалярное произведение веторов (6 и 7): " + Vector.scalarMultiply(vector6, vector7));
+        System.out.println("Скалярное произведение веторов (6 и 7): " + Vector.getScalarMultiply(vector6, vector7));
     }
 }
