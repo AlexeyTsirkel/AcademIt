@@ -6,7 +6,9 @@ public class Vector {
     private double[] components;
 
     public Vector(int n) {
-        if (n <= 0) { throw new IllegalArgumentException("Размерность вектора задана не положительным числом!"); }
+        if (n <= 0) {
+            throw new IllegalArgumentException("Размерность вектора задана не положительным числом!");
+        }
         this.components = new double[n];
     }
 
@@ -19,7 +21,9 @@ public class Vector {
     }
 
     public Vector(int n, double[] array) {
-        if (n <= 0) { throw new IllegalArgumentException("Размерность вектора задана не положительным числом!"); }
+        if (n <= 0) {
+            throw new IllegalArgumentException("Размерность вектора задана не положительным числом!");
+        }
         this.components = Arrays.copyOf(array, n);
     }
 
@@ -83,19 +87,17 @@ public class Vector {
 
     public Vector setComponent(int index, double comp) {
         if (index >= this.components.length || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Индекс задан числом не входящим в длину диапазона!");
-        } else {
-            this.components[index] = comp;
-            return this;
+            throw new IndexOutOfBoundsException("Индекс задан числом не входящим в длину диапазона!");
         }
+        this.components[index] = comp;
+        return this;
     }
 
     public double getComponent(int index) {
         if (index < 0 || index >= this.components.length) {
-            throw new ArrayIndexOutOfBoundsException("Индекс задан числом не входящим в длину диапазона!");
-        } else {
-            return this.components[index];
+            throw new IndexOutOfBoundsException("Индекс задан числом не входящим в длину диапазона!");
         }
+        return this.components[index];
     }
 
     @Override
